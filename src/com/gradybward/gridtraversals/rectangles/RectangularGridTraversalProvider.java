@@ -19,9 +19,9 @@ public abstract class RectangularGridTraversalProvider {
     return canProvideWithDimensions(w, h, from, to);
   }
 
-  RectangularGridTraversal provideStartingAtPoint(Point2D.Double p, int w, int h, Corner from,
+  public RectangularGridTraversal provideStartingAtPoint(Point2D.Double p, int w, int h, Corner from,
       Corner to) {
-    return provideStartingAtPoint(new Point((int) Math.floor(p.x), (int) Math.floor(p.y)), w, h, from, to);
+    return provideStartingAtPoint(new Point((int) Math.round(p.x), (int) Math.round(p.y)), w, h, from, to);
   }
   
   RectangularGridTraversal provideStartingAtPoint(Point p, int w, int h, Corner from,
@@ -30,8 +30,8 @@ public abstract class RectangularGridTraversalProvider {
       throw new IllegalArgumentException(
           "Do not call ProvideStartingAtPoint without first calling canProvide!");
     }
-    RectangularGridTraversal result = provideStartingAtOrigin(w, h, from, to)
-        .translateFirstPointTo(p.x, p.y);
+    RectangularGridTraversal result = provideStartingAtOrigin(w, h, from, to);
+    result = result.translateFirstPointTo(p.x, p.y);
     if (Corner.getFromCoords(result.getTopLeftCorner(), result.getFirst()) != from) {
       throw new IllegalStateException(String.format(
           "It Looks like the rectangle didn't meet the FROM corner\n%s w=%s h=%s from=%s to=%s\n%s",
@@ -41,6 +41,16 @@ public abstract class RectangularGridTraversalProvider {
       throw new IllegalStateException(String.format(
           "It Looks like the rectangle didn't meet the TO corner\n%s w=%s h=%s from=%s to=%s\n%s",
           result.getClass().getSimpleName(), w, h, from, to, result.toString()));
+    }
+    double maxX = result.get().stream().mapToDouble(a -> a.x).max().getAsDouble();
+    double minX = result.get().stream().mapToDouble(a -> a.x).min().getAsDouble();
+    double maxY = result.get().stream().mapToDouble(a -> a.y).max().getAsDouble();
+    double minY = result.get().stream().mapToDouble(a -> a.y).min().getAsDouble();
+    if ((int) Math.round(maxX - minX) != w-1) {
+      throw new IllegalStateException(String.format("Expected range to be %s, but the bounds was [%s, %s]", w-1, minX, maxX));
+    }
+    if ((int) Math.round(maxY - minY) != h-1) {
+      throw new IllegalStateException(String.format("Expected range to be %s, but the bounds was [%s, %s]", h-1, minY, maxY));
     }
     return result;
   }

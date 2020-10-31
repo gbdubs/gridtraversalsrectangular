@@ -5,7 +5,7 @@ import java.util.List;
 
 final class VerticalSnake extends RectangularGridTraversalProvider {
 
-  private static List<Point> constructPoints(int height, int width) {
+  private static List<Point> constructPoints(int width, int height) {
     List<Point> result = new ArrayList<>();
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
@@ -17,7 +17,7 @@ final class VerticalSnake extends RectangularGridTraversalProvider {
   }
 
   @Override
-  protected boolean canProvideWithDimensions(int h, int w, Corner from, Corner to) {
+  protected boolean canProvideWithDimensions(int w, int h, Corner from, Corner to) {
     if (from.sameXAs(to)) {
       return false;
     }
@@ -28,8 +28,8 @@ final class VerticalSnake extends RectangularGridTraversalProvider {
   }
 
   @Override
-  protected RectangularGridTraversal provideStartingAtOrigin(int h, int w, Corner from, Corner to) {
-    RectangularGridTraversal snake = new RectangularGridTraversal(constructPoints(h, w));
+  protected RectangularGridTraversal provideStartingAtOrigin(int w, int h, Corner from, Corner to) {
+    RectangularGridTraversal snake = new RectangularGridTraversal(constructPoints(w, h));
     switch (from) {
       case TOP_LEFT:
         return snake;

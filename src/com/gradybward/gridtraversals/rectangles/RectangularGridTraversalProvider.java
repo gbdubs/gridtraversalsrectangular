@@ -19,13 +19,13 @@ public abstract class RectangularGridTraversalProvider {
     return canProvideWithDimensions(w, h, from, to);
   }
 
-  public RectangularGridTraversal provideStartingAtPoint(Point2D.Double p, int w, int h, Corner from,
-      Corner to) {
-    return provideStartingAtPoint(new Point((int) Math.round(p.x), (int) Math.round(p.y)), w, h, from, to);
+  public RectangularGridTraversal provideStartingAtPoint(Point2D.Double p, int w, int h,
+      Corner from, Corner to) {
+    return provideStartingAtPoint(new Point((int) Math.round(p.x), (int) Math.round(p.y)), w, h,
+        from, to);
   }
-  
-  RectangularGridTraversal provideStartingAtPoint(Point p, int w, int h, Corner from,
-      Corner to) {
+
+  RectangularGridTraversal provideStartingAtPoint(Point p, int w, int h, Corner from, Corner to) {
     if (!canProvideWithDimensions(w, h, from, to)) {
       throw new IllegalArgumentException(
           "Do not call ProvideStartingAtPoint without first calling canProvide!");
@@ -46,11 +46,13 @@ public abstract class RectangularGridTraversalProvider {
     double minX = result.get().stream().mapToDouble(a -> a.x).min().getAsDouble();
     double maxY = result.get().stream().mapToDouble(a -> a.y).max().getAsDouble();
     double minY = result.get().stream().mapToDouble(a -> a.y).min().getAsDouble();
-    if ((int) Math.round(maxX - minX) != w-1) {
-      throw new IllegalStateException(String.format("Expected range to be %s, but the bounds was [%s, %s]", w-1, minX, maxX));
+    if ((int) Math.round(maxX - minX) != w - 1) {
+      throw new IllegalStateException(
+          String.format("Expected range to be %s, but the bounds was [%s, %s]", w - 1, minX, maxX));
     }
-    if ((int) Math.round(maxY - minY) != h-1) {
-      throw new IllegalStateException(String.format("Expected range to be %s, but the bounds was [%s, %s]", h-1, minY, maxY));
+    if ((int) Math.round(maxY - minY) != h - 1) {
+      throw new IllegalStateException(
+          String.format("Expected range to be %s, but the bounds was [%s, %s]", h - 1, minY, maxY));
     }
     return result;
   }

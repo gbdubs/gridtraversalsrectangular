@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Providers {
-  private static final List<RectangularGridTraversalProvider> ALL = Arrays
-      .asList(new VerticalSnake(), new SpiralSnake(), new HorizontalSnake(), new CornerSnake());
+  private static final List<RectangularGridTraversalProvider> ALL = Arrays.asList(
+      new VerticalSnake(), new SpiralSnake(), new HorizontalSnake(), new CornerSnake(),
+      new CombSnake());
 
   public static List<RectangularGridTraversalProvider> getProvidersForSituation(int w, int h,
       Corner from, Corner to) {

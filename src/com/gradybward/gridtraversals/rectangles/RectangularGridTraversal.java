@@ -24,7 +24,7 @@ public final class RectangularGridTraversal {
     assertAdjacent();
     assertDistinct();
   }
-  
+
   public List<Point2D.Double> get() {
     return Point.toDouble(points);
   }

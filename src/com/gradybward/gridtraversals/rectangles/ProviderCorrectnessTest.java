@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class ProviderTest {
+public class ProviderCorrectnessTest {
 
   private final RectangularGridTraversalProvider provider;
   private final int w;
@@ -18,8 +18,8 @@ public class ProviderTest {
   private final Corner from;
   private final Corner to;
 
-  public ProviderTest(String testName, RectangularGridTraversalProvider provider, int w, int h,
-      Corner from, Corner to) {
+  public ProviderCorrectnessTest(String testName, RectangularGridTraversalProvider provider, int w,
+      int h, Corner from, Corner to) {
     this.provider = provider;
     this.w = w;
     this.h = h;
@@ -39,8 +39,9 @@ public class ProviderTest {
     providers.put(new HorizontalSnake(), "HorizontalSnake");
     providers.put(new SpiralSnake(), "SpiralSnake");
     providers.put(new VerticalSnake(), "VerticalSnake");
+    providers.put(new CombSnake(), "CombSnake");
     int minW = 2;
-    int maxW = 9;
+    int maxW = 10;
     int minH = 2;
     int maxH = 10;
 

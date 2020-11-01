@@ -25,6 +25,18 @@ public abstract class RectangularGridTraversalProvider {
         from, to);
   }
 
+  public RectangularGridTraversal provideWithTopLeftAtPoint(Point topLeft, int width, int height,
+      Corner in, Corner out) {
+    Point startingAt = topLeft;
+    if (in.sameXAs(Corner.BOTTOM_RIGHT)) {
+      startingAt = new Point(startingAt.x + width - 1, startingAt.y);
+    }
+    if (in.sameYAs(Corner.BOTTOM_RIGHT)) {
+      startingAt = new Point(startingAt.x, startingAt.y + height - 1);
+    }
+    return provideStartingAtPoint(startingAt, width, height, in, out);
+  }
+
   RectangularGridTraversal provideStartingAtPoint(Point p, int w, int h, Corner from, Corner to) {
     if (!canProvideWithDimensions(w, h, from, to)) {
       throw new IllegalArgumentException(

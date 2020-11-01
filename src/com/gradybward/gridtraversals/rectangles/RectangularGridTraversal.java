@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public final class RectangularGridTraversal {
+public class RectangularGridTraversal {
 
-  private final List<Point> points;
-  private final int width;
-  private final int height;
+  protected final List<Point> points;
+  protected final int width;
+  protected final int height;
 
-  RectangularGridTraversal(List<Point> points) {
+  protected RectangularGridTraversal(List<Point> points) {
     this.points = points;
     int minX = points.stream().mapToInt(p -> p.x).min().getAsInt();
     int maxX = points.stream().mapToInt(p -> p.x).max().getAsInt();
